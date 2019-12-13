@@ -8,6 +8,10 @@ class Nlp:
 
     def lang(self, sentence):
         if sentence:
-            return detect(sentence)
+            try:
+                lang = detect(sentence)
+                return lang
+            except:
+                return DEFAULT
         else:
             return DEFAULT

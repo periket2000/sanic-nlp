@@ -10,7 +10,8 @@ nlp_service = Nlp()
 async def lang(request):
     try:
         assert request.body
-        request_body = jparser.loads(request.body)
+        # Tweet can come in several ways, so first decode/ignore and then json parse strict False
+        request_body = jparser.loads(request.body.decode('utf-8', 'ignore'), encoding='utf-8', strict=False)
         assert request_body is not None
         return json({"idiom": nlp_service.lang(request_body.get("sentence", None))})
     except (jparser.decoder.JSONDecodeError, AssertionError) as e:
