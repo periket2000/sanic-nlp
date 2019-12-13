@@ -1,4 +1,3 @@
-from sanic.exceptions import ServerError
 from sanic.response import json
 from routes.api import app
 from services.nlp import Nlp
@@ -15,4 +14,14 @@ async def lang(request):
         assert request_body is not None
         return json({"idiom": nlp_service.lang(request_body.get("sentence", None))})
     except (jparser.decoder.JSONDecodeError, AssertionError) as e:
-        raise ServerError("Bad request", status_code=400)
+        return json(
+            {'error': 'Bad request'},
+            headers={'X-Served-By': 'sanic'},
+            status=400
+        )
+    except Exception as e:
+        return json(
+            {'error': 'Internal error'},
+            headers={'X-Served-By': 'sanic'},
+            status=500
+        )
