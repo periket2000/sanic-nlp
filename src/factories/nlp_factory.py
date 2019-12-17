@@ -12,4 +12,4 @@ class NlpFactory:
 
     @staticmethod
     def instance(kind=None):
-        return services.get(kind, NlpGoogle)()
+        return services.get(kind, Nlp)()
