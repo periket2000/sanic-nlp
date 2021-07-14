@@ -15,3 +15,8 @@ Body example:
 "sentence": "the sentence you want to know the idiom about"
 }
 ```
+
+# Ask the artifact
+```
+curl -i -X POST -H "Content-Type: application/json" -d "{\"sentence\": \"how are you doing?\"}" http://localhost:8000/lang
+```
